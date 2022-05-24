@@ -1,0 +1,39 @@
+.App {
+    text-align: center;
+    background-color: #b7eaeaff;
+  }
+  
+  html, body, body > div, .App {
+    height: auto;
+    width:100%;
+  }
+  
+  #generate, #word-input {
+    margin-top: 2em;
+  }
+  
+  #generate {
+    color: white;
+  }
+  
+  #selectNounType {
+    border: 0;
+    border-radius:.25rem;
+  
+    color:grey;
+    padding: .25em;
+    outline-color:lightblue;
+  }
+  
+  #shuffle-button{
+    text-align: left;
+  }
+  
+  #shuffle {
+    color: #2a5752;
+  }
+
+  #comicImage {
+    margin-top:20px;
+    margin-bottom: 50px;
+  }
