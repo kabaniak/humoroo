@@ -2,6 +2,8 @@ from gensim.models import KeyedVectors
 import time
 import random
 import WordsToComic as WordsToComic
+from textblob import TextBlob
+
 startTime = time.perf_counter()
 model = KeyedVectors.load_word2vec_format("./GoogleNews-vectors-negative300.bin", binary=True)
 endTime = time.perf_counter()
@@ -36,6 +38,23 @@ def create_joke(word1, word2):
     format = random.randint(0,7)
     word = random.randint(0,9)
     wordToUse = model.most_similar(positive=[word1, word2])[word]
+
+    def pos_finder(text):
+        if len(text.split()) > 1:
+            return "noun"
+        blob = TextBlob(word)
+        pos = blob.tags[1]
+        if pos.startswith("JJ"):
+            return "adj"
+        elif pos.startswith("NN"):
+            return "noun"
+        elif pos.startswith("VB"):
+            return "verb"
+        
+    word1pos = pos_finder(word1)
+    word2pos = pos_finder(word2)
+    wordToUsepos = pos_finder(wordToUse)
+
     if format == 0:
             string= ["{}", "{}", "{}"]
     elif format == 1:
