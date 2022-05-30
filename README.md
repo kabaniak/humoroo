@@ -7,8 +7,8 @@ To set up:
 3. Run npm install in the frontend directory
 
 To run:
-1. Run 'flask run' in the backend directory
-2. Run 'npm start in the frontend directory
+1. Run 'flask run' in the backend directory in one terminal. Leave it alone.
+2. Run 'npm start in the frontend directory in another terminal.
 3. React app should start on your local host (5000)
 
 Notes:
