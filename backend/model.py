@@ -79,7 +79,7 @@ def create_joke(word1, word2):
     word2pos = pos_finder(word2)
 
     #changed code:
-    wordToUsepos = pos_finder(wordToUse[0])
+    wordToUsepos = pos_finder(wordToUse[-1])
 
     #original code:
     #wordToUsepos = pos_finder(wordToUse)
