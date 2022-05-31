@@ -3,6 +3,9 @@ import time
 import random
 import WordsToComic as WordsToComic
 from textblob import TextBlob
+from remove_plural import remove_plural
+from lev_distance import rank_by_lev_dist
+from remove_duplicate import remove_duplicate
 
 startTime = time.perf_counter()
 model = KeyedVectors.load_word2vec_format("./GoogleNews-vectors-negative300.bin", binary=True)
@@ -19,7 +22,17 @@ def pass_joke(word1, word2):
 
     startTime = time.perf_counter()
     #find 10 similar words
-    word3 = model.most_similar(positive=[word1, word2])[0][0].replace("_", " ")
+
+    #added code:
+    simList = model.most_similar(positive=[word1, word2])
+    simList = remove_plural(word1, word2, simList)
+    simList = remove_duplicate(word1, word2, simList)
+    simList = rank_by_lev_dist(word1, word2, simList)
+    word3 = simList[0][0].replace("_", " ")
+    #end of added code
+
+    #original code:
+    #word3 = model.most_similar(positive=[word1, word2])[0][0].replace("_", " ")
     endTime = time.perf_counter()
     print("Joke-writing " + str(endTime-startTime) + " seconds")
 
@@ -37,7 +50,18 @@ def create_joke(word1, word2):
     
     format = random.randint(0,7)
     word = random.randint(0,9)
-    wordToUse = model.most_similar(positive=[word1, word2])[word]
+
+    #added code:
+    simList = model.most_similar(positive=[word1, word2])
+    simList = remove_plural(word1, word2, simList)
+    simList = remove_duplicate(word1, word2, simList)
+    simList = rank_by_lev_dist(word1, word2, simList)
+    wordToUse = simList[word]
+    # end of added code
+
+    #Original code:
+    #wordToUse = model.most_similar(positive=[word1, word2])[word]
+
 
     def pos_finder(text):
         if len(text.split()) > 1:
@@ -53,7 +77,12 @@ def create_joke(word1, word2):
         
     word1pos = pos_finder(word1)
     word2pos = pos_finder(word2)
-    wordToUsepos = pos_finder(wordToUse)
+
+    #changed code:
+    wordToUsepos = pos_finder(wordToUse[0])
+
+    #original code:
+    #wordToUsepos = pos_finder(wordToUse)
 
     if format == 0:
             string= ["{}", "{}", "{}"]
