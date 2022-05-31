@@ -41,4 +41,5 @@ texttable==1.6.4
 uritemplate==3.0.1
 urllib3==1.26.8
 textblob==0.16.0
+levenshtein==0.18.1
 # windows-curses==2.3.0
